@@ -41,6 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\IEligibility.cs" />
+    <Compile Include="Abstract\IProductEligibilityParamRepository.cs" />
+    <Compile Include="Abstract\IProductDataRepository.cs" />
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Entities\ProductData.cs" />
     <Compile Include="Entities\ProductEligibilityParam.cs" />
