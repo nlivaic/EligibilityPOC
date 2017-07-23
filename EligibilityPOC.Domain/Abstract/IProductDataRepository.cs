@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace EligibilityPOC.Domain.Abstract {
-    interface IProductDataRepository {
+    public interface IProductDataRepository {
         IQueryable<ProductData> ProductDatas { get; set; }
     }
 }

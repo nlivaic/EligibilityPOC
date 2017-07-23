@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace EligibilityPOC.Domain.Entities {
-    class ProductEligibilityParam {
+    public class ProductEligibilityParam {
         public int Id { get; set; }
         public int ProductId { get; set; }
         public string EligibilityName { get; set; }

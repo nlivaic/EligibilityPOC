@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace EligibilityPOC.Domain.Abstract {
-    interface IProductEligibilityParamRepository {
+    public interface IProductEligibilityParamRepository {
         IQueryable<ProductEligibilityParam> GetProductEligibilityParams(int productId);
     }
 }

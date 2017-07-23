@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace EligibilityPOC.Domain.Entities {
-    class ProductData {
+    public class ProductData {
         public int Id { get; set; }
         public string Name { get; set; }
         public DateTime ValidFrom { get; set; }
