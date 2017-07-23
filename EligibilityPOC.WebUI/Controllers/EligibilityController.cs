@@ -1,4 +1,5 @@
 ﻿using EligibilityPOC.Domain.Abstract;
+using EligibilityPOC.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +19,16 @@ namespace EligibilityPOC.WebUI.Controllers
         }
 
         // GET: Eligibility
-        public ActionResult Index()
+        public ActionResult RawProducts()
         {
-            return View();
+            ProductViewModel productVM = new ProductViewModel();
+            productVM.ProductData = productDataRepository.ProductDatas.Where(p => p.Id == 1).FirstOrDefault(); ;
+            productVM.ProductEligibilityParams = productEligibilityParamRepository.GetProductEligibilityParams(1);
+            return View(productVM);
         }
+    }
+    public class ProductViewModel {
+        public ProductData ProductData { get; set; }
+        public IQueryable<ProductEligibilityParam> ProductEligibilityParams { get; set; }
     }
 }
