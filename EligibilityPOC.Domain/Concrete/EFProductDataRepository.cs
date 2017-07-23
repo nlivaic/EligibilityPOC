@@ -14,7 +14,7 @@ namespace EligibilityPOC.Domain.Concrete {
             context = new EFDbContext();
         }
 
-        public IQueryable<ProductData> ProductData {
+        public IQueryable<ProductData> ProductDatas {
             get {
                 return context.ProductData;
             }
