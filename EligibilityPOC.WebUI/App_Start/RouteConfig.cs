@@ -15,8 +15,14 @@ namespace EligibilityPOC.WebUI
 
             routes.MapRoute(
                 name: "Default",
+                url: "",
+                defaults: new { controller = "Eligibility", action = "Index", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Eligibility", action = "Index", id = UrlParameter.Optional }
             );
         }
     }
