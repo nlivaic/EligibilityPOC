@@ -5,23 +5,40 @@ using Moq;
 using EligibilityPOC.Domain.Concrete;
 using EligibilityPOC.Domain.Entities;
 using System.Linq;
+using EligibilityPOC.Domain.Entities.EligibilityEntities;
 
 namespace EligibilityPOC.UnitTests {
     [TestClass]
     public class CompositeEligibilityFactoryTest {
-        private void TestInitialize() {
+        private CompositeEligibilityFactoryBuilder _targetBuilder;
+
+        [TestInitialize]
+        public void TestInitialize() {
+            _targetBuilder = new CompositeEligibilityFactoryBuilder();
         }
 
         [TestMethod]
         public void Can_Create_A_Single_Rule_Set_With_Single_Eligible_Object() {
+            // Arrange
+            int productId = 1;
+            _targetBuilder.WithSingleRuleSetWithSingleEligibility(productId);
+            CompositeEligibilityFactory target = _targetBuilder.Build();
+
+            // Act
+            IEligible result = target.Create(productId);
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(FormSubtypeEligibility));
         }
 
         [TestMethod]
         public void Can_Create_A_Single_Rule_Set_With_Single_Composite_Eligible_Object() {
+            Assert.Fail();
         }
 
         [TestMethod]
         public void Can_Create_A_Multi_Rule_Set_Composite_Eligible_Object() {
+            Assert.Fail();
         }
     }
 
@@ -43,7 +60,7 @@ namespace EligibilityPOC.UnitTests {
                     new ProductEligibilityParam {
                         Id = 1,
                         ProductId = productId,
-                        EligibilityName = "FormSubtype",
+                        EligibilityName = "FormSubtypeEligibility",
                         ParamName = "ValidSubtypes",
                         ParamValue = "1,5,7",
                         RuleSet = 1
