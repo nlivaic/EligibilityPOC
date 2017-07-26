@@ -50,8 +50,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\IEligibility.cs" />
+    <Compile Include="Abstract\IEligibilityFactory.cs" />
     <Compile Include="Abstract\IProductEligibilityParamRepository.cs" />
     <Compile Include="Abstract\IProductDataRepository.cs" />
+    <Compile Include="Concrete\CompositeEligibilityFactory.cs" />
     <Compile Include="Concrete\EFDbContext.cs" />
     <Compile Include="Concrete\EFProductDataRepository.cs" />
     <Compile Include="Concrete\EFProductEligibilityParamRepository.cs" />
