@@ -22,7 +22,7 @@ namespace EligibilityPOC.WebUI.Controllers
         public ActionResult RawProducts()
         {
             ProductViewModel productVM = new ProductViewModel();
-            productVM.ProductData = productDataRepository.ProductDatas.Where(p => p.Id == 1).FirstOrDefault(); ;
+            productVM.ProductData = productDataRepository.ProductDatas.Where(p => p.Id == 1).FirstOrDefault();
             productVM.ProductEligibilityParams = productEligibilityParamRepository.GetProductEligibilityParams(1);
             return View(productVM);
         }

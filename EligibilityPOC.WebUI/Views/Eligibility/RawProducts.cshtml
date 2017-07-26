@@ -6,4 +6,8 @@
 
 <h2>RawProducts</h2>
 
-@Model.ProductData.Id
+Model.ProductData.Id: @Model.ProductData.Id<br />
+Params: <br />
+@foreach (EligibilityPOC.Domain.Entities.ProductEligibilityParam param in Model.ProductEligibilityParams) {
+    @:@param.ParamName @param.ParamValue <br />
+}
