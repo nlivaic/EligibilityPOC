@@ -1,4 +1,5 @@
 ﻿using EligibilityPOC.Domain.Abstract;
+using EligibilityPOC.Domain.Concrete;
 using EligibilityPOC.Domain.Entities;
 using Moq;
 using Ninject;
@@ -59,19 +60,19 @@ namespace EligibilityPOC.WebUI.Infrastructure {
                         ParamName = "ValidSubtypes",
                         ParamValue = "7",
                         RuleSet = 2
-                    },
-                    new ProductEligibilityParam {
-                        Id = 4,
-                        ProductId = 2,
-                        EligibilityName = "FormSubtype",
-                        ParamName = "ValidSubtypes",
-                        ParamValue = "5",
-                        RuleSet = 1
-                    }
+                    }//,
+                    //new ProductEligibilityParam {
+                    //    Id = 4,
+                    //    ProductId = 2,
+                    //    EligibilityName = "FormSubtype",
+                    //    ParamName = "ValidSubtypes",
+                    //    ParamValue = "5",
+                    //    RuleSet = 1
+                    //}
                 }.AsQueryable<ProductEligibilityParam>());
 
-            kernel.Bind<IProductDataRepository>().ToConstant(mockProductDataRepo.Object);
-            kernel.Bind<IProductEligibilityParamRepository>().ToConstant(mockProductEligParamRepo.Object);
+            kernel.Bind<IProductDataRepository>().To<EFProductDataRepository>();
+            kernel.Bind<IProductEligibilityParamRepository>().To<EFProductEligibilityParamRepository>();
         }
     }
 }
