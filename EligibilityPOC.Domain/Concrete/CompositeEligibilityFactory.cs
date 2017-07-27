@@ -31,6 +31,9 @@ namespace EligibilityPOC.Domain.Concrete {
         private IList<IEligibility> MapParamsToEligible(IList<ProductEligibilityParam> eligParams) {
             var type = typeof(IEligibility).Assembly.GetTypes().Single(t => t.Name == eligParams[0].EligibilityName);
             IEligibility eligible = (IEligibility)Activator.CreateInstance(type);
+
+            eligible.GetType().GetProperty(eligParams[0].ParamName).SetValue(eligible, eligParams[0].ParamValue);
+
             List<IEligibility> eligList = new List<IEligibility>();
             eligList.Add(eligible);
             return eligList;
