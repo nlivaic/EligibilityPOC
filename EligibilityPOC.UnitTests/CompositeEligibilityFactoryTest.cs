@@ -18,6 +18,11 @@ namespace EligibilityPOC.UnitTests {
         }
 
         [TestMethod]
+        public void Return_Null_Object_If_No_Eligibilities() {
+            Assert.Fail();
+        }
+
+        [TestMethod]
         public void Can_Create_A_Single_Rule_Set_With_Single_Eligible_Object_With_Single_Property() {
             // Arrange
             int productId = 1;
