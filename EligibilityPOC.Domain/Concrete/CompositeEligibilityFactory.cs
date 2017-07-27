@@ -29,13 +29,22 @@ namespace EligibilityPOC.Domain.Concrete {
         /// <param name="eligParams">A list with a basic representation of eligibility parameters.</param>
         /// <returns>A list of eligibilities, with no particular structure.</returns>
         private IList<IEligibility> MapParamsToEligible(IList<ProductEligibilityParam> eligParams) {
-            var type = typeof(IEligibility).Assembly.GetTypes().Single(t => t.Name == eligParams[0].EligibilityName);
-            IEligibility eligible = (IEligibility)Activator.CreateInstance(type);
-
-            eligible.GetType().GetProperty(eligParams[0].ParamName).SetValue(eligible, eligParams[0].ParamValue);
-
+            string eligibilityName = String.Empty;
+            Type type;
+            IEligibility eligible = null;
             List<IEligibility> eligList = new List<IEligibility>();
-            eligList.Add(eligible);
+
+            foreach (ProductEligibilityParam param in eligParams.OrderBy(p => p.EligibilityName)) {
+                // Multiple parameters might belong to the same eligibility.
+                if (eligibilityName != param.EligibilityName) {
+                    type = typeof(IEligibility).Assembly.GetTypes().Single(t => t.Name == param.EligibilityName);
+                    eligible = (IEligibility)Activator.CreateInstance(type);
+                    eligibilityName = param.EligibilityName;
+                    eligList.Add(eligible);
+                }
+                // Set eligibilities property values.
+                eligible.GetType().GetProperty(param.ParamName).SetValue(eligible, param.ParamValue);
+            }
             return eligList;
         }
 
