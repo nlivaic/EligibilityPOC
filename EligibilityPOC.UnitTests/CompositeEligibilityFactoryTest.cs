@@ -42,6 +42,7 @@ namespace EligibilityPOC.UnitTests {
 
             // Assert
             Assert.IsNotNull(result);
+            Assert.IsTrue(result.RuleSet == 1);
             Assert.IsTrue(result.ValidSubtypes == "1,5,7");
 
         }
@@ -58,6 +59,7 @@ namespace EligibilityPOC.UnitTests {
 
             // Assert
             Assert.IsNotNull(result);
+            Assert.IsTrue(result.RuleSet == 1);
             Assert.IsTrue(result.MinCount == "1");
             Assert.IsTrue(result.MaxCount == "4");
         }
