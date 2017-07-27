@@ -40,6 +40,7 @@ namespace EligibilityPOC.Domain.Concrete {
                 if (eligibilityName != param.EligibilityName) {
                     type = typeof(IEligibility).Assembly.GetTypes().Single(t => t.Name == param.EligibilityName);
                     eligible = (IEligibility)Activator.CreateInstance(type);
+                    eligible.GetType().GetProperty("RuleSet").SetValue(eligible, param.RuleSet);
                     eligibilityName = param.EligibilityName;
                     eligList.Add(eligible);
                 }
