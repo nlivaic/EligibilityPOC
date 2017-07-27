@@ -19,7 +19,15 @@ namespace EligibilityPOC.UnitTests {
 
         [TestMethod]
         public void Return_Null_Object_If_No_Eligibilities() {
-            Assert.Fail();
+            // Arrange
+            _targetBuilder.WithNoEligibility();
+            CompositeEligibilityFactory target = _targetBuilder.Build();
+
+            // Act
+            IEligibility result = target.Create(1);
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(NullEligibility));
         }
 
         [TestMethod]
@@ -75,6 +83,12 @@ namespace EligibilityPOC.UnitTests {
         public CompositeEligibilityFactoryBuilder() {
             _mockRepo = new Mock<IProductEligibilityParamRepository>();
             _eligibilityFactory = new CompositeEligibilityFactory(_mockRepo.Object);
+        }
+
+        public CompositeEligibilityFactoryBuilder WithNoEligibility() {
+            _mockRepo.Setup(m => m.GetProductEligibilityParams(It.IsAny<int>())).Returns(
+                new ProductEligibilityParam[0].AsQueryable<ProductEligibilityParam>());
+            return this;
         }
 
         public CompositeEligibilityFactoryBuilder WithSingleRuleSetWithSingleEligibilityWithSingleProperty(int productId) {
