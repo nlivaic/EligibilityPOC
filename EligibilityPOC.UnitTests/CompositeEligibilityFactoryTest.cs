@@ -50,8 +50,8 @@ namespace EligibilityPOC.UnitTests {
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.IsTrue(result.MinCount == 1);
-            Assert.IsTrue(result.MinCount == 4);
+            Assert.IsTrue(result.MinCount == "1");
+            Assert.IsTrue(result.MaxCount == "4");
         }
 
         [TestMethod]
