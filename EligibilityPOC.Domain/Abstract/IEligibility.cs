@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace EligibilityPOC.Domain.Abstract {
-    public interface IEligible {
+    public interface IEligibility {
         bool IsEligible();
     }
 }

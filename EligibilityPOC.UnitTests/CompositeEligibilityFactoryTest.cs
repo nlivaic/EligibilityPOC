@@ -25,7 +25,7 @@ namespace EligibilityPOC.UnitTests {
             CompositeEligibilityFactory target = _targetBuilder.Build();
 
             // Act
-            IEligible result = target.Create(productId);
+            IEligibility result = target.Create(productId);
 
             // Assert
             Assert.IsInstanceOfType(result, typeof(FormSubtypeEligibility));

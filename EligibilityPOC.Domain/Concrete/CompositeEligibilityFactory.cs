@@ -14,9 +14,9 @@ namespace EligibilityPOC.Domain.Concrete {
             prodEligRepository = prodEligRepo;
         }
 
-        public IEligible Create(int productId) {
+        public IEligibility Create(int productId) {
             IQueryable<ProductEligibilityParam> eligibilityParameters = prodEligRepository.GetProductEligibilityParams(productId);
-            IList<IEligible> eligibilities = MapParamsToEligible(eligibilityParameters.ToList<ProductEligibilityParam>());
+            IList<IEligibility> eligibilities = MapParamsToEligible(eligibilityParameters.ToList<ProductEligibilityParam>());
             // Process the list of IEligibles into a Composite structure, based on rulesets.
             // ... here ...
             return eligibilities[0];
@@ -28,10 +28,10 @@ namespace EligibilityPOC.Domain.Concrete {
         /// </summary>
         /// <param name="eligParams">A list with a basic representation of eligibility parameters.</param>
         /// <returns>A list of eligibilities, with no particular structure.</returns>
-        private IList<IEligible> MapParamsToEligible(IList<ProductEligibilityParam> eligParams) {
-            var type = typeof(IEligible).Assembly.GetTypes().Single(t => t.Name == eligParams[0].EligibilityName);
-            IEligible eligible = (IEligible)Activator.CreateInstance(type);
-            List<IEligible> eligList = new List<IEligible>();
+        private IList<IEligibility> MapParamsToEligible(IList<ProductEligibilityParam> eligParams) {
+            var type = typeof(IEligibility).Assembly.GetTypes().Single(t => t.Name == eligParams[0].EligibilityName);
+            IEligibility eligible = (IEligibility)Activator.CreateInstance(type);
+            List<IEligibility> eligList = new List<IEligibility>();
             eligList.Add(eligible);
             return eligList;
         }

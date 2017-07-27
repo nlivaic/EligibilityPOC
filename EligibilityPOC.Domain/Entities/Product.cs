@@ -8,6 +8,6 @@ using System.Threading.Tasks;
 namespace EligibilityPOC.Domain.Entities {
     public class Product {
         public ProductData ProductData { get; set; }
-        public IEligible Eligibility { get; set; }
+        public IEligibility Eligibility { get; set; }
     }
 }

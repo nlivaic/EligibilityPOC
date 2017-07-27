@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace EligibilityPOC.Domain.Entities.EligibilityEntities {
-    public class FormSubtypeEligibility : IEligible {
+    public class FormSubtypeEligibility : IEligibility {
         public FormSubtypeEligibility() {
 
         }

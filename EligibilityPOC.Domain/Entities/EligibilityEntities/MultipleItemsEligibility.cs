@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace EligibilityPOC.Domain.Entities.EligibilityEntities {
-    public class MultipleItemsEligibility : IEligible {
+    public class MultipleItemsEligibility : IEligibility {
         public int MinCount { get; set; }
         public int MaxCount { get; set; }
 

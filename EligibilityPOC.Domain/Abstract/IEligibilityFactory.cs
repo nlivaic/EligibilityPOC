@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 namespace EligibilityPOC.Domain.Abstract {
     public interface IEligibilityFactory {
-        IEligible Create(int productId);
+        IEligibility Create(int productId);
     }
 }
