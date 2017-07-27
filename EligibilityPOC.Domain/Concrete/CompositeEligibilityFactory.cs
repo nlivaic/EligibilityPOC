@@ -1,4 +1,5 @@
 ﻿using EligibilityPOC.Domain.Abstract;
+using EligibilityPOC.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,26 @@ namespace EligibilityPOC.Domain.Concrete {
         }
 
         public IEligible Create(int productId) {
-            throw new NotImplementedException();
+            IQueryable<ProductEligibilityParam> eligibilityParameters = prodEligRepository.GetProductEligibilityParams(productId);
+            IList<IEligible> eligibilities = MapParamsToEligible(eligibilityParameters.ToList<ProductEligibilityParam>());
+            // Process the list of IEligibles into a Composite structure, based on rulesets.
+            // ... here ...
+            return eligibilities[0];
         }
+
+        /// <summary>
+        /// Takes basic list of eligibility parameters and transforms it into a list of eligibilities.
+        /// Multiple eligibility parameters might be necessary to create a single eligibility.
+        /// </summary>
+        /// <param name="eligParams">A list with a basic representation of eligibility parameters.</param>
+        /// <returns>A list of eligibilities, with no particular structure.</returns>
+        private IList<IEligible> MapParamsToEligible(IList<ProductEligibilityParam> eligParams) {
+            var type = typeof(IEligible).Assembly.GetTypes().Single(t => t.Name == eligParams[0].EligibilityName);
+            IEligible eligible = (IEligible)Activator.CreateInstance(type);
+            List<IEligible> eligList = new List<IEligible>();
+            eligList.Add(eligible);
+            return eligList;
+        }
+
     }
 }
