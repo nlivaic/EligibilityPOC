@@ -1,5 +1,6 @@
 ﻿using EligibilityPOC.Domain.Abstract;
 using EligibilityPOC.Domain.Entities;
+using EligibilityPOC.Domain.Entities.EligibilityEntities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,6 +45,9 @@ namespace EligibilityPOC.Domain.Concrete {
                 }
                 // Set eligibilities property values.
                 eligible.GetType().GetProperty(param.ParamName).SetValue(eligible, param.ParamValue);
+            }
+            if (eligList.Count == 0) {
+                eligList.Add(new NullEligibility());
             }
             return eligList;
         }
