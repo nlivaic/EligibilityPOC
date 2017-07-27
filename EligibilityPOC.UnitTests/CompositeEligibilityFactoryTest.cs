@@ -21,7 +21,7 @@ namespace EligibilityPOC.UnitTests {
         public void Can_Create_A_Single_Rule_Set_With_Single_Eligible_Object() {
             // Arrange
             int productId = 1;
-            _targetBuilder.WithSingleRuleSetWithSingleEligibility(productId);
+            _targetBuilder.WithSingleRuleSetWithSingleEligibilityWithSingleProperty(productId);
             CompositeEligibilityFactory target = _targetBuilder.Build();
 
             // Act
@@ -54,7 +54,7 @@ namespace EligibilityPOC.UnitTests {
             _eligibilityFactory = new CompositeEligibilityFactory(_mockRepo.Object);
         }
 
-        public CompositeEligibilityFactoryBuilder WithSingleRuleSetWithSingleEligibility(int productId) {
+        public CompositeEligibilityFactoryBuilder WithSingleRuleSetWithSingleEligibilityWithSingleProperty(int productId) {
             _mockRepo.Setup(m => m.GetProductEligibilityParams(productId)).Returns(
                 new ProductEligibilityParam[] {
                     new ProductEligibilityParam {
@@ -63,6 +63,29 @@ namespace EligibilityPOC.UnitTests {
                         EligibilityName = "FormSubtypeEligibility",
                         ParamName = "ValidSubtypes",
                         ParamValue = "1,5,7",
+                        RuleSet = 1
+                    }
+                }.AsQueryable<ProductEligibilityParam>());
+            return this;
+        }
+
+        public CompositeEligibilityFactoryBuilder WithSingleRuleSetWithSingleEligibilityWithMultipleProperties(int productId) {
+            _mockRepo.Setup(m => m.GetProductEligibilityParams(productId)).Returns(
+                new ProductEligibilityParam[] {
+                    new ProductEligibilityParam {
+                        Id = 1,
+                        ProductId = productId,
+                        EligibilityName = "MultipleItemsEligibility",
+                        ParamName = "MinCount",
+                        ParamValue = "1",
+                        RuleSet = 1
+                    },
+                    new ProductEligibilityParam {
+                        Id = 1,
+                        ProductId = productId,
+                        EligibilityName = "MultipleItemsEligibility",
+                        ParamName = "MaxCount",
+                        ParamValue = "4",
                         RuleSet = 1
                     }
                 }.AsQueryable<ProductEligibilityParam>());
