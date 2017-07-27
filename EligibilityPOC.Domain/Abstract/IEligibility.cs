@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace EligibilityPOC.Domain.Abstract {
     public interface IEligibility {
+        int RuleSet { get; set; }
+
         bool IsEligible();
     }
 }

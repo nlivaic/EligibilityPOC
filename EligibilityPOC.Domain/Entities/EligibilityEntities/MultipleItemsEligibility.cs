@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace EligibilityPOC.Domain.Entities.EligibilityEntities {
     public class MultipleItemsEligibility : IEligibility {
+        public int RuleSet { get; set; }
         public string MinCount { get; set; }
         public string MaxCount { get; set; }
 

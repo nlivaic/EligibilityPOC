@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace EligibilityPOC.Domain.Entities.EligibilityEntities {
     public class NullEligibility : IEligibility {
+        public int RuleSet { get; set; }
+
         public bool IsEligible() {
             return true;
         }

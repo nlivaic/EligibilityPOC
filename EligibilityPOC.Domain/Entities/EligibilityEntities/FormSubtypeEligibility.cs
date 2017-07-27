@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace EligibilityPOC.Domain.Entities.EligibilityEntities {
     public class FormSubtypeEligibility : IEligibility {
+        public int RuleSet { get; set; }
+
         public string ValidSubtypes { get; set; }
 
         public bool IsEligible() {
