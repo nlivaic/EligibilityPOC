@@ -59,6 +59,7 @@
     <Compile Include="Concrete\EFProductEligibilityParamRepository.cs" />
     <Compile Include="Entities\EligibilityEntities\FormSubtypeEligibility.cs" />
     <Compile Include="Entities\EligibilityEntities\MultipleItemsEligibility.cs" />
+    <Compile Include="Entities\EligibilityEntities\NullEligibility.cs" />
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Entities\ProductData.cs" />
     <Compile Include="Entities\ProductEligibilityParam.cs" />
