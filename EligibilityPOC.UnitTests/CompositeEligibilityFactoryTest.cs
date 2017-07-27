@@ -18,17 +18,35 @@ namespace EligibilityPOC.UnitTests {
         }
 
         [TestMethod]
-        public void Can_Create_A_Single_Rule_Set_With_Single_Eligible_Object() {
+        public void Can_Create_A_Single_Rule_Set_With_Single_Eligible_Object_With_Single_Property() {
             // Arrange
             int productId = 1;
             _targetBuilder.WithSingleRuleSetWithSingleEligibilityWithSingleProperty(productId);
             CompositeEligibilityFactory target = _targetBuilder.Build();
 
             // Act
-            IEligibility result = target.Create(productId);
+            FormSubtypeEligibility result = target.Create(productId) as FormSubtypeEligibility;
 
             // Assert
-            Assert.IsInstanceOfType(result, typeof(FormSubtypeEligibility));
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.ValidSubtypes == "1,5,7");
+
+        }
+
+        [TestMethod]
+        public void Can_Create_A_Single_Rule_Set_With_Single_Eligible_Object_With_Multiple_Properties() {
+            // Arrange
+            int productId = 1;
+            _targetBuilder.WithSingleRuleSetWithSingleEligibilityWithMultipleProperties(productId);
+            CompositeEligibilityFactory target = _targetBuilder.Build();
+
+            // Act
+            MultipleItemsEligibility result = target.Create(productId) as MultipleItemsEligibility;
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.MinCount == 1);
+            Assert.IsTrue(result.MinCount == 4);
         }
 
         [TestMethod]
