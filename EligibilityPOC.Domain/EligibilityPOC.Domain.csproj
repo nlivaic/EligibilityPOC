@@ -57,6 +57,7 @@
     <Compile Include="Concrete\EFDbContext.cs" />
     <Compile Include="Concrete\EFProductDataRepository.cs" />
     <Compile Include="Concrete\EFProductEligibilityParamRepository.cs" />
+    <Compile Include="Entities\EligibilityEntities\FormSubtypeEligibility.cs" />
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Entities\ProductData.cs" />
     <Compile Include="Entities\ProductEligibilityParam.cs" />
