@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace EligibilityPOC.Domain.Concrete {
     public class CompositeEligibilityFactory : IEligibilityFactory {
-        private IProductEligibilityParamRepository prodEligRepository;
+        private IProductEligibilityParamRepository _prodEligRepository;
 
         public CompositeEligibilityFactory(IProductEligibilityParamRepository prodEligRepo) {
-            prodEligRepository = prodEligRepo;
+            _prodEligRepository = prodEligRepo;
         }
 
         public IEligibility Create(int productId) {
-            IQueryable<ProductEligibilityParam> eligibilityParameters = prodEligRepository.GetProductEligibilityParams(productId);
+            IQueryable<ProductEligibilityParam> eligibilityParameters = _prodEligRepository.GetProductEligibilityParams(productId);
             IList<IEligibility> eligibilities = MapParamsToEligibility(eligibilityParameters.ToList<ProductEligibilityParam>());
             // Process the list of IEligibles into a Composite structure, based on rulesets.
             // ... here ...
