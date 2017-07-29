@@ -31,7 +31,7 @@ namespace EligibilityPOC.UnitTests {
         }
 
         [TestMethod]
-        public void Can_Create_A_Single_Rule_Set_With_Single_Eligible_Object_With_Single_Property() {
+        public void Can_Create_A_Composite_With_Single_Rule_Set_With_Single_Eligibility() {
             // Arrange
             int productId = 1;
             _targetBuilder.WithSingleRuleSetWithSingleEligibilityWithSingleProperty(productId);
@@ -48,7 +48,7 @@ namespace EligibilityPOC.UnitTests {
         }
 
         [TestMethod]
-        public void Can_Create_A_Single_Rule_Set_With_Single_Eligible_Object_With_Multiple_Properties() {
+        public void Can_Create_A_Composite_With_Single_Rule_Set_With_Multiple_Eligibility() {
             // Arrange
             int productId = 1;
             _targetBuilder.WithSingleRuleSetWithSingleEligibilityWithMultipleProperties(productId);
@@ -65,12 +65,7 @@ namespace EligibilityPOC.UnitTests {
         }
 
         [TestMethod]
-        public void Can_Create_A_Single_Rule_Set_With_Single_Composite_Eligible_Object() {
-            Assert.Fail();
-        }
-
-        [TestMethod]
-        public void Can_Create_A_Multi_Rule_Set_Composite_Eligible_Object() {
+        public void Can_Create_A_Composite_With_Multiple_Rule_Set_With_Multiple_Eligibility() {
             Assert.Fail();
         }
     }
