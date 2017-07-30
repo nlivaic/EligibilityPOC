@@ -62,6 +62,8 @@
     <Compile Include="Entities\EligibilityEntities\FormSubtypeEligibility.cs" />
     <Compile Include="Entities\EligibilityEntities\MultipleItemsEligibility.cs" />
     <Compile Include="Entities\EligibilityEntities\NullEligibility.cs" />
+    <Compile Include="Entities\EligibilityEntities\RuleSet1Eligibility.cs" />
+    <Compile Include="Entities\EligibilityEntities\RuleSetOtherEligibility.cs" />
     <Compile Include="Entities\EligibilityEntities\SubscriberTypeEligibility.cs" />
     <Compile Include="Entities\EligibilityEntities\TariffsEligibility.cs" />
     <Compile Include="Entities\Product.cs" />
