@@ -78,31 +78,16 @@ namespace EligibilityPOC.Domain.Concrete {
         /// <param name="rawEligibilities">A flat list of rule set eligibilities.</param>
         /// <returns></returns>
         private IEligibility CreateAllRuleSets(IList<IEligibility> rawEligibilities) {
-            RuleSet1Eligibility compositeEligibilities = null;
-            RuleSetOtherEligibility priorEligibility = null;
-            IEligibility initialRuleSetOtherEligibility = null;
+            IEligibility compositeEligibilities = null;
             if (rawEligibilities.Count == 0) {
                 return new NullEligibility();
             }
-            // Add rule set 1 explicitly.
-            if (rawEligibilities.Count > 0) {
-                compositeEligibilities = (RuleSet1Eligibility)rawEligibilities[0];
+            // Skip the last eligibility as it doesn't contain any new Composites.
+            for (int i = 0; i < rawEligibilities.Count - 1; i++) {
+                compositeEligibilities = rawEligibilities[i];
+                compositeEligibilities.AddComponent(rawEligibilities[i+1]);
             }
-            // Rule set 2 must be added to rule set 1. 
-            // Since this involves handling two different types, it seems wiser to use a dedicated piece of code just for that.
-            if (rawEligibilities.Count > 1) {
-                initialRuleSetOtherEligibility = rawEligibilities[1];
-            }
-            // Skip rule sets 1 and 2.
-            for (int i = 2; i < rawEligibilities.Count; i++) {
-                priorEligibility = (RuleSetOtherEligibility)rawEligibilities[i-1];
-                priorEligibility.AddComponent(rawEligibilities[i]);
-            }
-            // In other wods, we have more than 2 rule sets.
-            if (initialRuleSetOtherEligibility != null) {
-                compositeEligibilities.AddComponent(initialRuleSetOtherEligibility);
-            }
-            return (IEligibility)compositeEligibilities;
+            return compositeEligibilities;
         }
     }
 }
