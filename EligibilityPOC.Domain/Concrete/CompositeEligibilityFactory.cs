@@ -17,6 +17,11 @@ namespace EligibilityPOC.Domain.Concrete {
             _eligibilityMapper = mapper;
         }
 
+        /// <summary>
+        /// Retrieves eligibility parameters, transforms them into eligibilities, groups into rule sets and builds a Composite structure.
+        /// </summary>
+        /// <param name="productId">Build an eligibility structure belonging to the specified product.</param>
+        /// <returns>Product's Composite eligibility structure.</returns>
         public IEligibility Create(int productId) {
             IQueryable<ProductEligibilityParam> eligibilityParameters = _prodEligRepository.GetProductEligibilityParams(productId);
             IList<IEligibility> eligibilities = _eligibilityMapper.MapParamsToEligibility(eligibilityParameters.ToList<ProductEligibilityParam>());
@@ -35,26 +40,18 @@ namespace EligibilityPOC.Domain.Concrete {
                 }
                 ruleSetEligibility.RuleSet = i;
             }
-            compositeEligibilities = CreateComposite(rawRuleSetEligibilities);
-
-            // Rule set 1 is handled differently from the subsequent rule sets.
-            //foreach (IEligibility eligibility in eligibilities.Where(e => e.RuleSet == 1)) {
-            //    ruleSet = 1;
-            //    compositeEligibilities.AddComponent(eligibility);
-            //}
-            //// Rule sets 2 and on have a dedicated rule set eligibility type.
-            //foreach (IEligibility eligibility in eligibilities.Where(e => e.RuleSet > 1)) {
-            //    if (ruleSet != eligibility.RuleSet) {
-            //        ruleSet = eligibility.RuleSet;
-            //        compositeEligibilities.AddComponent(new RuleSetOtherEligibility());
-            //    }
-            //    compositeEligibilities.AddComponent(eligibility);
-            //}
             // Process the list of IEligibles into a Composite structure, based on rulesets.
-            // ... here ...
+            compositeEligibilities = CreateComposite(rawRuleSetEligibilities);
             return compositeEligibilities;
         }
 
+        /// <summary>
+        /// Create a rule set based on the eligibilities provided.
+        /// </summary>
+        /// <typeparam name="T">Rule set eligibility type to create.</typeparam>
+        /// <param name="eligibilities">A list of eligibilities to become part of a rule set. 
+        ///                             Provide a list of eligibilities that have been filtered upfront for a specific rule set.</param>
+        /// <returns>Type T rule set.</returns>
         private T CreateRuleSet<T>(IEnumerable<IEligibility> eligibilities) where T : IEligibility, new() {
             T compositeEligibilities = new T();
             foreach (IEligibility eligibility in eligibilities) {
