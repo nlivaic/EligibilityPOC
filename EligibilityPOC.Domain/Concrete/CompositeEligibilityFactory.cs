@@ -27,10 +27,10 @@ namespace EligibilityPOC.Domain.Concrete {
             for (int i = 1; i <= ruleSetCount; i++) {
                 // Rule set 1 is handled differently from the subsequent rule sets.
                 if (i == 1) {
-                    ruleSetEligibility = CreateRuleSet1(eligibilities.Where(e => e.RuleSet == i));
+                    ruleSetEligibility = CreateRuleSet<RuleSet1Eligibility>(eligibilities.Where(e => e.RuleSet == i));
                     rawRuleSetEligibilities.Add(ruleSetEligibility);
                 } else {
-                    ruleSetEligibility = CreateRuleSetOther(eligibilities.Where(e => e.RuleSet == i));
+                    ruleSetEligibility = CreateRuleSet<RuleSetOtherEligibility>(eligibilities.Where(e => e.RuleSet == i));
                     rawRuleSetEligibilities.Add(ruleSetEligibility);
                 }
                 ruleSetEligibility.RuleSet = i;
@@ -55,22 +55,13 @@ namespace EligibilityPOC.Domain.Concrete {
             return compositeEligibilities;
         }
 
-        private IEligibility CreateRuleSet1(IEnumerable<IEligibility> eligibilities) {
-            RuleSet1Eligibility compositeEligibilities = new RuleSet1Eligibility();
+        private T CreateRuleSet<T>(IEnumerable<IEligibility> eligibilities) where T : IEligibility, new() {
+            T compositeEligibilities = new T();
             foreach (IEligibility eligibility in eligibilities) {
                 compositeEligibilities.AddComponent(eligibility);
             }
             return compositeEligibilities;
         }
-
-        private IEligibility CreateRuleSetOther(IEnumerable<IEligibility> eligibilities) {
-            RuleSetOtherEligibility compositeEligibilities = new RuleSetOtherEligibility();
-            foreach (IEligibility eligibility in eligibilities) {
-                compositeEligibilities.AddComponent(eligibility);
-            }
-            return compositeEligibilities;
-        }
-
 
         /// <summary>
         /// Builds a hierarchical composite structure of rule set eligibilities from a flat list of rule set eligibilities.
