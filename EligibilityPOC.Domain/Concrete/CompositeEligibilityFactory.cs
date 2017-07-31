@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace EligibilityPOC.Domain.Concrete {
+    /// <summary>
+    /// Builds an eligibility structure for specified product.
+    /// </summary>
     public class CompositeEligibilityFactory : IEligibilityFactory {
         private IProductEligibilityParamRepository _prodEligRepository;
         private IProductParamToEligibilityMapper _eligibilityMapper;
