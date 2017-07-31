@@ -13,5 +13,9 @@ namespace EligibilityPOC.Domain.Entities.EligibilityEntities {
         public bool IsEligible() {
             throw new NotImplementedException();
         }
+
+        public void AddComponent(IEligibility eligibility) {
+            throw new NotImplementedException();
+        }
     }
 }

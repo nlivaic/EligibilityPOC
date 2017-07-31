@@ -9,5 +9,7 @@ namespace EligibilityPOC.Domain.Abstract {
         int RuleSet { get; set; }
 
         bool IsEligible();
-    }
+
+        void AddComponent(IEligibility eligibility);
+        }
 }
