@@ -64,10 +64,10 @@ namespace EligibilityPOC.Domain.Concrete {
         }
 
         /// <summary>
-        /// Builds a hierarchical composite structure of rule set eligibilities from a flat list of rule set eligibilities.
+        /// Goes through provided flat rule set structure and builds a hierarchical composite structure.
         /// </summary>
         /// <param name="rawEligibilities">A flat list of rule set eligibilities.</param>
-        /// <returns></returns>
+        /// <returns>A hierarchical composite structure of rule set eligibilities</returns>
         private IEligibility CreateComposite(IList<IEligibility> rawEligibilities) {
             IEligibility compositeEligibilities = null;
             if (rawEligibilities.Count == 0) {
