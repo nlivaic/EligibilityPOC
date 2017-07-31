@@ -35,7 +35,7 @@ namespace EligibilityPOC.Domain.Concrete {
                 }
                 ruleSetEligibility.RuleSet = i;
             }
-            compositeEligibilities = CreateAllRuleSets(rawRuleSetEligibilities);
+            compositeEligibilities = CreateComposite(rawRuleSetEligibilities);
 
             // Rule set 1 is handled differently from the subsequent rule sets.
             //foreach (IEligibility eligibility in eligibilities.Where(e => e.RuleSet == 1)) {
@@ -68,7 +68,7 @@ namespace EligibilityPOC.Domain.Concrete {
         /// </summary>
         /// <param name="rawEligibilities">A flat list of rule set eligibilities.</param>
         /// <returns></returns>
-        private IEligibility CreateAllRuleSets(IList<IEligibility> rawEligibilities) {
+        private IEligibility CreateComposite(IList<IEligibility> rawEligibilities) {
             IEligibility compositeEligibilities = null;
             if (rawEligibilities.Count == 0) {
                 return new NullEligibility();
