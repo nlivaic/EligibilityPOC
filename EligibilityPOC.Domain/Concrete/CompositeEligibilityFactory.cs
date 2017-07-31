@@ -73,12 +73,15 @@ namespace EligibilityPOC.Domain.Concrete {
             if (rawEligibilities.Count == 0) {
                 return new NullEligibility();
             }
+            // Rule set 1 becomes the composite root by default.
+            compositeEligibilities = rawEligibilities[0];
             // Skip the last eligibility as it doesn't contain any new Composites.
-            for (int i = 0; i < rawEligibilities.Count - 1; i++) {
+            for (int i = 1; i < rawEligibilities.Count; i++) {
+                compositeEligibilities.AddComponent(rawEligibilities[i]);
                 compositeEligibilities = rawEligibilities[i];
-                compositeEligibilities.AddComponent(rawEligibilities[i+1]);
             }
-            return compositeEligibilities;
+            // Return composite root.
+            return rawEligibilities[0];
         }
     }
 }
