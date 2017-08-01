@@ -8,6 +8,14 @@ using EligibilityPOC.Domain.Entities;
 
 namespace EligibilityPOC.Domain.Concrete {
     public class ProductBuilder : IProductBuilder {
+        private IEligibilityFactory _eligibilityFactory;
+        private IProductDataRepository _productDataRepository;
+
+        public ProductBuilder(IEligibilityFactory eligFactory, IProductDataRepository productDataRepo) {
+            _eligibilityFactory = eligFactory;
+            _productDataRepository = productDataRepo;
+    }
+
         public Product Create(int productId) {
             throw new NotImplementedException();
         }
