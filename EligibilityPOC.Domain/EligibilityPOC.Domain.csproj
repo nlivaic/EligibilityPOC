@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Abstract\IEligibility.cs" />
     <Compile Include="Abstract\IEligibilityFactory.cs" />
+    <Compile Include="Abstract\IProductBuilder.cs" />
     <Compile Include="Abstract\IProductEligibilityParamRepository.cs" />
     <Compile Include="Abstract\IProductDataRepository.cs" />
     <Compile Include="Abstract\IProductParamToEligibilityMapper.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="Concrete\EFDbContext.cs" />
     <Compile Include="Concrete\EFProductDataRepository.cs" />
     <Compile Include="Concrete\EFProductEligibilityParamRepository.cs" />
+    <Compile Include="Concrete\ProductBuilder.cs" />
     <Compile Include="Entities\EligibilityEntities\FormSubtypeEligibility.cs" />
     <Compile Include="Entities\EligibilityEntities\MultipleItemsEligibility.cs" />
     <Compile Include="Entities\EligibilityEntities\NullEligibility.cs" />
