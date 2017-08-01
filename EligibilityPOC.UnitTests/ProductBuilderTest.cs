@@ -48,7 +48,6 @@ namespace EligibilityPOC.UnitTests {
             Assert.IsTrue(result.ProductData.Id == 1);
             // Assert - lack of eligibility is signalled through Null Eligibility object.
             Assert.IsInstanceOfType(result.Eligibility, typeof(NullEligibility));
-
         }
 
         [TestMethod]
