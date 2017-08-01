@@ -17,6 +17,10 @@ namespace EligibilityPOC.Domain.Concrete {
     }
 
         public Product Create(int productId) {
+            ProductData productData = _productDataRepository.ProductDatas.Where(p => p.Id == productId).FirstOrDefault();
+            if (productData == null) {
+                return null;
+            }
             throw new NotImplementedException();
         }
     }
