@@ -63,6 +63,7 @@
     <Compile Include="CompositeEligibilityFactoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ActivatorProductParamToEligibilityMapperTest.cs" />
+    <Compile Include="ProductBuilderTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EligibilityPOC.Domain\EligibilityPOC.Domain.csproj">
