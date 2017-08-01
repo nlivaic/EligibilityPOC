@@ -21,7 +21,11 @@ namespace EligibilityPOC.Domain.Concrete {
             if (productData == null) {
                 return null;
             }
-            throw new NotImplementedException();
+            Product product = new Product {
+                ProductData = productData,
+                Eligibility = _eligibilityFactory.Create(productId)
+            };
+            return product;
         }
     }
 }
