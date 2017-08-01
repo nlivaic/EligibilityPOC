@@ -74,6 +74,13 @@ namespace EligibilityPOC.UnitTests {
             return this;
         }
 
+        public ProductBuilderBuilder WithNoEligibity(int productId) {
+            _mockEligFactory.Setup(m => m.Create(productId)).Returns(
+                    new NullEligibility()
+                );
+            return this;
+        }
+
         public ProductBuilderBuilder WithEligibities(int productId) {
             _mockEligFactory.Setup(m => m.Create(productId)).Returns(
                 new RuleSet1Eligibility {
