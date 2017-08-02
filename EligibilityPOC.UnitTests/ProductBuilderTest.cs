@@ -54,6 +54,27 @@ namespace EligibilityPOC.UnitTests {
         public void Cannot_Build_Product_With_ProductData_And_Eligibility_Of_Different_Ids() {
 
         }
+
+        [TestMethod]
+        public void Can_Build_Product_With_Eligibility() {
+            // Arrange
+            int productId = 1;
+            _targetBuilder.WithProductData();
+            _targetBuilder.WithRuleSetEligibities(productId);
+            ProductBuilder target = _targetBuilder.Build();
+
+            // Act
+            Product result = target.BuildProductData(productId).BuildEligibility(productId).Build();
+
+            // Assert - result in general
+            Assert.IsNotNull(result);
+            // Assert - product data exists and contains correct data.
+            Assert.IsNotNull(result.ProductData);
+            Assert.IsTrue(result.ProductData.Id == 1);
+            // Assert - eligibility
+            Assert.IsNotNull(result.Eligibility);
+            Assert.IsTrue(result.Eligibility.RuleSet == 1);
+        }
     }
 
     public class ProductBuilderBuilder {
