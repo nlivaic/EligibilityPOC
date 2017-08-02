@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace EligibilityPOC.Domain.Abstract {
     public interface IProductBuilder {
-        Product Create(int productId);
+        IProductBuilder BuildProductData(int productId);
+        IProductBuilder BuildEligibility(int productId);
+
+        Product Build();
     }
 }
