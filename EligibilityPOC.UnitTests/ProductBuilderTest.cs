@@ -29,6 +29,26 @@ namespace EligibilityPOC.UnitTests {
             // Assert
             Assert.IsNull(result);
         }
+
+        [TestMethod]
+        public void Can_Build_Product_With_No_Eligibility() {
+            // Arrange
+            int productId = 1;
+            _targetBuilder.WithProductData();
+            _targetBuilder.WithNoEligibity(productId);
+            ProductBuilder target = _targetBuilder.Build();
+
+            // Act
+            Product result = target.BuildProductData(1).BuildEligibility(1).Build();
+
+            // Assert - result in general
+            Assert.IsNotNull(result);
+            // Assert - product data exists and contains correct data.
+            Assert.IsNotNull(result.ProductData);
+            Assert.IsTrue(result.ProductData.Id == 1);
+            // Assert - lack of eligibility is signalled through Null Eligibility object.
+            Assert.IsInstanceOfType(result.Eligibility, typeof(NullEligibility));
+        }
     }
 
     public class ProductBuilderBuilder {
