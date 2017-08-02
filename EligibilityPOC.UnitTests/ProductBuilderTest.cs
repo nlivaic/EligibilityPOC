@@ -13,18 +13,13 @@ namespace EligibilityPOC.UnitTests {
     public class ProductBuilderTest {
         ProductBuilderBuilder _targetBuilder;
 
-        [TestInitialize]
-        public void TestInitialize() {
-            _targetBuilder = new ProductBuilderBuilder();
-        }
-
         [TestMethod]
         public void Cannot_Build_Product_With_No_Product_Data() {
             // Arrange
-            ProductBuilder target = _targetBuilder.Build();
+            ProductBuilder target = new ProductBuilderBuilder(9).Build();           // Use a product Id that doesn't exist in the mocked repos.
 
             // Act
-            Product result = target.BuildProductData(9).Build();           // Use a product Id that doesn't exist in the mocked repos.
+            Product result = target.Build();
 
             // Assert
             Assert.IsNull(result);
@@ -34,12 +29,13 @@ namespace EligibilityPOC.UnitTests {
         public void Can_Build_Product_With_No_Eligibility() {
             // Arrange
             int productId = 1;
+            _targetBuilder = new ProductBuilderBuilder(1);
             _targetBuilder.WithProductData();
             _targetBuilder.WithNoEligibity(productId);
             ProductBuilder target = _targetBuilder.Build();
 
             // Act
-            Product result = target.BuildProductData(1).BuildEligibility(1).Build();
+            Product result = target.BuildProductData().BuildEligibility().Build();
 
             // Assert - result in general
             Assert.IsNotNull(result);
@@ -49,22 +45,18 @@ namespace EligibilityPOC.UnitTests {
             // Assert - lack of eligibility is signalled through Null Eligibility object.
             Assert.IsInstanceOfType(result.Eligibility, typeof(NullEligibility));
         }
-
-        [TestMethod]
-        public void Cannot_Build_Product_With_ProductData_And_Eligibility_Of_Different_Ids() {
-
-        }
-
+        
         [TestMethod]
         public void Can_Build_Product_With_Eligibility() {
             // Arrange
             int productId = 1;
+            _targetBuilder = new ProductBuilderBuilder(1);
             _targetBuilder.WithProductData();
             _targetBuilder.WithRuleSetEligibities(productId);
             ProductBuilder target = _targetBuilder.Build();
 
             // Act
-            Product result = target.BuildProductData(productId).BuildEligibility(productId).Build();
+            Product result = target.BuildProductData().BuildEligibility().Build();
 
             // Assert - result in general
             Assert.IsNotNull(result);
@@ -82,10 +74,10 @@ namespace EligibilityPOC.UnitTests {
         Mock<IProductDataRepository> _mockProductDataRepo;
         ProductBuilder _productBuilder;
         
-        public ProductBuilderBuilder() {
+        public ProductBuilderBuilder(int productId) {
             _mockEligFactory = new Mock<IEligibilityFactory>();
             _mockProductDataRepo = new Mock<IProductDataRepository>();
-            _productBuilder = new ProductBuilder(_mockEligFactory.Object, _mockProductDataRepo.Object);
+            _productBuilder = new ProductBuilder(_mockEligFactory.Object, _mockProductDataRepo.Object, productId);
         }
 
         public ProductBuilderBuilder WithProductData() {
