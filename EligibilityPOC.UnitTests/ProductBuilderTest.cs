@@ -49,6 +49,11 @@ namespace EligibilityPOC.UnitTests {
             // Assert - lack of eligibility is signalled through Null Eligibility object.
             Assert.IsInstanceOfType(result.Eligibility, typeof(NullEligibility));
         }
+
+        [TestMethod]
+        public void Cannot_Build_Product_With_ProductData_And_Eligibility_Of_Different_Ids() {
+
+        }
     }
 
     public class ProductBuilderBuilder {
