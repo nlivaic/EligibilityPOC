@@ -24,7 +24,7 @@ namespace EligibilityPOC.UnitTests {
             ProductBuilder target = _targetBuilder.Build();
 
             // Act
-            Product result = target.Create(9);           // Use a product Id that doesn't exist in the mocked repos.
+            Product result = target.BuildProductData(9).Build();           // Use a product Id that doesn't exist in the mocked repos.
 
             // Assert
             Assert.IsNull(result);
