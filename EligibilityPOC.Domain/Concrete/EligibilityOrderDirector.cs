@@ -10,6 +10,7 @@ namespace EligibilityPOC.Domain.Concrete {
     public class EligibilityOrderDirector : IOrderProcessor {
         private IProductBuilder _builder;
         private Product _product;
+
         public EligibilityOrderDirector(IProductBuilder builder) {
             _builder = builder;
         }
