@@ -26,16 +26,25 @@ namespace EligibilityPOC.UnitTests {
         }
 
         [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void Throw_When_Product_Id_Changed() {
+            // Arrange
+            ProductBuilder target = new ProductBuilderBuilder(1).Build();           // Use a product Id that doesn't exist in the mocked repos.
+            target.BuildProductData(1);
+            target.BuildProductData(19);
+        }
+
+        [TestMethod]
         public void Can_Build_Product_With_No_Eligibility() {
             // Arrange
             int productId = 1;
-            _targetBuilder = new ProductBuilderBuilder(1);
+            _targetBuilder = new ProductBuilderBuilder(productId);
             _targetBuilder.WithProductData();
             _targetBuilder.WithNoEligibity(productId);
             ProductBuilder target = _targetBuilder.Build();
 
             // Act
-            Product result = target.BuildProductData().BuildEligibility().Build();
+            Product result = target.BuildProductData(productId).BuildEligibility().Build();
 
             // Assert - result in general
             Assert.IsNotNull(result);
@@ -50,13 +59,13 @@ namespace EligibilityPOC.UnitTests {
         public void Can_Build_Product_With_Eligibility() {
             // Arrange
             int productId = 1;
-            _targetBuilder = new ProductBuilderBuilder(1);
+            _targetBuilder = new ProductBuilderBuilder(productId);
             _targetBuilder.WithProductData();
             _targetBuilder.WithRuleSetEligibities(productId);
             ProductBuilder target = _targetBuilder.Build();
 
             // Act
-            Product result = target.BuildProductData().BuildEligibility().Build();
+            Product result = target.BuildProductData(productId).BuildEligibility().Build();
 
             // Assert - result in general
             Assert.IsNotNull(result);
@@ -77,7 +86,7 @@ namespace EligibilityPOC.UnitTests {
         public ProductBuilderBuilder(int productId) {
             _mockEligFactory = new Mock<IEligibilityFactory>();
             _mockProductDataRepo = new Mock<IProductDataRepository>();
-            _productBuilder = new ProductBuilder(_mockEligFactory.Object, _mockProductDataRepo.Object, productId);
+            _productBuilder = new ProductBuilder(_mockEligFactory.Object, _mockProductDataRepo.Object);
         }
 
         public ProductBuilderBuilder WithProductData() {
