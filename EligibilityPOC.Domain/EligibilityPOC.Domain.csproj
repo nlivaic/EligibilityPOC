@@ -70,6 +70,7 @@
     <Compile Include="Entities\EligibilityEntities\RuleSetOtherEligibility.cs" />
     <Compile Include="Entities\EligibilityEntities\SubscriberTypeEligibility.cs" />
     <Compile Include="Entities\EligibilityEntities\TariffsEligibility.cs" />
+    <Compile Include="Entities\Order.cs" />
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Entities\ProductData.cs" />
     <Compile Include="Entities\ProductEligibilityParam.cs" />
