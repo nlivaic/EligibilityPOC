@@ -27,11 +27,27 @@ namespace EligibilityPOC.UnitTests {
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void Throw_When_Product_Id_Changed() {
+        public void Throw_When_Product_Id_Changed_Before_Product_Built() {
             // Arrange
             ProductBuilder target = new ProductBuilderBuilder(1).Build();           // Use a product Id that doesn't exist in the mocked repos.
             target.BuildProductData(1);
             target.BuildProductData(19);
+        }
+
+        [TestMethod]
+        public void Can_Reuse_Builder_After_Product_Built() {
+            // Arrange
+            int productId = 1;
+            int productIdNext = 2;
+            ProductBuilder target = new ProductBuilderBuilder(1).WithProductData().WithNoEligibity(productId).WithNoEligibity(productIdNext).Build();     // No eligibility to make the test simpler.
+            target.BuildProductData(productId).Build();
+
+            // Act
+            Product result = target.BuildProductData(productIdNext).Build();
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.ProductData.Id == 2);
         }
 
         [TestMethod]
