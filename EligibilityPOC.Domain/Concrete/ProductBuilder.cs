@@ -7,16 +7,34 @@ using System.Threading.Tasks;
 using EligibilityPOC.Domain.Entities;
 
 namespace EligibilityPOC.Domain.Concrete {
+    /// <summary>
+    /// Builds a product. BuildProductData(int) must be called first, in order to initialize product identifier.
+    /// </summary>
     public class ProductBuilder : IProductBuilder {
         private IEligibilityFactory _eligibilityFactory;
         private IProductDataRepository _productDataRepository;
-        private int _productId;
         private Product _product;
+        // The following two fields are in charge of maintaining product id consistency over the builder life cycle.
+        private Nullable<int> _id;
+        private int _productId {
+            get {
+                if (_id == null) {
+                    throw new InvalidOperationException("Product id not provided. This exception was most likely thrown because you haven't called BuildProductData() first.");
+                }
+                return (int)_id;
+            }
+            set {
+                if (_id == null) {
+                    _id = value;
+                } else {
+                    throw new InvalidOperationException("Product id is already provided. This exception was most likely thrown because you have tried to reinitialize the builder. Are you calling BuildProductData() again?");
+                }
+            }
+        }
 
-        public ProductBuilder(IEligibilityFactory eligFactory, IProductDataRepository productDataRepo, int productId) {
+        public ProductBuilder(IEligibilityFactory eligFactory, IProductDataRepository productDataRepo) {
             _eligibilityFactory = eligFactory;
             _productDataRepository = productDataRepo;
-            _productId = productId;
             _product = new Product();
         }
 
@@ -35,7 +53,8 @@ namespace EligibilityPOC.Domain.Concrete {
         /// </summary>
         /// <param name="_productId"></param>
         /// <returns>Builder itself.</returns>
-        public IProductBuilder BuildProductData() {
+        public IProductBuilder BuildProductData(int productId) {
+            _productId = productId;
             _product.Eligibility = _eligibilityFactory.Create(_productId);
             return this;
         }
