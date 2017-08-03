@@ -14,7 +14,7 @@ namespace EligibilityPOC.UnitTests {
         [TestMethod]
         public void Cannot_Build_Product_With_No_Product_Data() {
             // Arrange
-            ProductBuilder target = new ProductBuilderBuilder(9).Build();           // Use a product Id that doesn't exist in the mocked repos.
+            ProductBuilder target = new ProductBuilderBuilder().Build();
 
             // Act
             Product result = target.Build();
@@ -27,7 +27,7 @@ namespace EligibilityPOC.UnitTests {
         [ExpectedException(typeof(InvalidOperationException))]
         public void Throw_When_Product_Id_Changed_Before_Product_Built() {
             // Arrange
-            ProductBuilder target = new ProductBuilderBuilder(1).Build();           // Use a product Id that doesn't exist in the mocked repos.
+            ProductBuilder target = new ProductBuilderBuilder().Build();
             target.BuildProductData(1);
             target.BuildProductData(19);
         }
@@ -37,7 +37,7 @@ namespace EligibilityPOC.UnitTests {
             // Arrange
             int productId = 1;
             int productIdNext = 2;
-            ProductBuilder target = new ProductBuilderBuilder(1).WithProductData().WithNoEligibity(productId).WithNoEligibity(productIdNext).Build();     // No eligibility to make the test simpler.
+            ProductBuilder target = new ProductBuilderBuilder().WithProductData().WithNoEligibity(productId).WithNoEligibity(productIdNext).Build();     // No eligibility to make the test simpler.
             target.BuildProductData(productId).Build();
 
             // Act
@@ -52,7 +52,7 @@ namespace EligibilityPOC.UnitTests {
         public void Can_Build_Product_With_No_Eligibility() {
             // Arrange
             int productId = 1;
-            ProductBuilder target = new ProductBuilderBuilder(productId).WithProductData().WithNoEligibity(productId).Build();
+            ProductBuilder target = new ProductBuilderBuilder().WithProductData().WithNoEligibity(productId).Build();
 
             // Act
             Product result = target.BuildProductData(productId).BuildEligibility().Build();
@@ -70,7 +70,7 @@ namespace EligibilityPOC.UnitTests {
         public void Can_Build_Product_With_Eligibility() {
             // Arrange
             int productId = 1;
-            ProductBuilder target = new ProductBuilderBuilder(productId).WithProductData().WithRuleSetEligibities(productId).Build();
+            ProductBuilder target = new ProductBuilderBuilder().WithProductData().WithRuleSetEligibities(productId).Build();
 
             // Act
             Product result = target.BuildProductData(productId).BuildEligibility().Build();
@@ -91,7 +91,7 @@ namespace EligibilityPOC.UnitTests {
         Mock<IProductDataRepository> _mockProductDataRepo;
         ProductBuilder _productBuilder;
         
-        public ProductBuilderBuilder(int productId) {
+        public ProductBuilderBuilder() {
             _mockEligFactory = new Mock<IEligibilityFactory>();
             _mockProductDataRepo = new Mock<IProductDataRepository>();
             _productBuilder = new ProductBuilder(_mockEligFactory.Object, _mockProductDataRepo.Object);
