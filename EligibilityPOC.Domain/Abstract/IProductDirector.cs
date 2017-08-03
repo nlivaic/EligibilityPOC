@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace EligibilityPOC.Domain.Abstract {
-    public interface IProductProcessor {
+    public interface IProductDirector {
         void Construct(IProductBuilder builder, int productId);
     }
 }
