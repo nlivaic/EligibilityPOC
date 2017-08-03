@@ -43,8 +43,7 @@ namespace EligibilityPOC.Domain.Concrete {
         /// </summary>
         /// <returns>Builder itself.</returns>
         public IProductBuilder BuildEligibility() {
-            ProductData productData = _productDataRepository.ProductDatas.Where(p => p.Id == _productId).FirstOrDefault();
-            _product.ProductData = productData;
+            _product.Eligibility = _eligibilityFactory.Create(_productId);
             return this;
         }
 
@@ -55,7 +54,8 @@ namespace EligibilityPOC.Domain.Concrete {
         /// <returns>Builder itself.</returns>
         public IProductBuilder BuildProductData(int productId) {
             _productId = productId;
-            _product.Eligibility = _eligibilityFactory.Create(_productId);
+            ProductData productData = _productDataRepository.ProductDatas.Where(p => p.Id == _productId).FirstOrDefault();
+            _product.ProductData = productData;
             return this;
         }
 
@@ -64,6 +64,8 @@ namespace EligibilityPOC.Domain.Concrete {
         /// </summary>
         /// <returns></returns>
         public Product Build() {
+            // Prepare the builder for reuse.
+            resetProductId();
             // Missing product data means product either isn't constructed properly or it doesn't exist in the repo.
             if (_product.ProductData == null) {
                 _product = null;
@@ -71,5 +73,11 @@ namespace EligibilityPOC.Domain.Concrete {
             return _product;
         }
 
+        /// <summary>
+        /// Allows for reuse of the builder. Resets product id's internal representation back to null.
+        /// </summary>
+        private void resetProductId() {
+            _id = null;
+        }
     }
 }
