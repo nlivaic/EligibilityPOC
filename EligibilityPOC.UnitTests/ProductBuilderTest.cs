@@ -11,8 +11,6 @@ using EligibilityPOC.Domain.Entities.EligibilityEntities;
 namespace EligibilityPOC.UnitTests {
     [TestClass]
     public class ProductBuilderTest {
-        ProductBuilderBuilder _targetBuilder;
-
         [TestMethod]
         public void Cannot_Build_Product_With_No_Product_Data() {
             // Arrange
@@ -54,10 +52,7 @@ namespace EligibilityPOC.UnitTests {
         public void Can_Build_Product_With_No_Eligibility() {
             // Arrange
             int productId = 1;
-            _targetBuilder = new ProductBuilderBuilder(productId);
-            _targetBuilder.WithProductData();
-            _targetBuilder.WithNoEligibity(productId);
-            ProductBuilder target = _targetBuilder.Build();
+            ProductBuilder target = new ProductBuilderBuilder(productId).WithProductData().WithNoEligibity(productId).Build();
 
             // Act
             Product result = target.BuildProductData(productId).BuildEligibility().Build();
@@ -75,10 +70,7 @@ namespace EligibilityPOC.UnitTests {
         public void Can_Build_Product_With_Eligibility() {
             // Arrange
             int productId = 1;
-            _targetBuilder = new ProductBuilderBuilder(productId);
-            _targetBuilder.WithProductData();
-            _targetBuilder.WithRuleSetEligibities(productId);
-            ProductBuilder target = _targetBuilder.Build();
+            ProductBuilder target = new ProductBuilderBuilder(productId).WithProductData().WithRuleSetEligibities(productId).Build();
 
             // Act
             Product result = target.BuildProductData(productId).BuildEligibility().Build();
